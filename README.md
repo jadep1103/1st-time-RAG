@@ -1,4 +1,4 @@
-# MistralTest
+# RAG REPO
 
 ## Overview
 RAG is a repository for experimenting with language models and retrieval-based question answering systems using the LangChain framework. The project focuses on building a retrieval-based QA system capable of answering questions based on pre-processed text data.

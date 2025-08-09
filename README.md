@@ -1,27 +1,121 @@
 # RAG REPO
 
-## Overview
-RAG is a repository for experimenting with language models and retrieval-based question answering systems using the LangChain framework. The project focuses on building a retrieval-based QA system capable of answering questions based on pre-processed text data.
+Experimental repository for building Retrieval-Augmented Generation (RAG) systems using LangChain. Testing different LLMs and document processing approaches for intelligent question answering.
 
-## Features
-- **Data Processing:** Utilizes the `dataprocessing` module to load and preprocess text data, making it suitable for training and inference.
-- **Model Setup:** Implements the `modelsetup` module to configure the language model and its components, including embeddings, LLMS (Language Learning Models), and vector stores for efficient retrieval.
-- **Question Answering:** Provides a user-friendly interface (commented code in the main.py for a console shell or deployement using gradio) for querying the QA system, allowing users to input questions and receive corresponding answers based on the trained model.
+![RAG System Demo](path/to/your/image.png)
 
-## Model
-This project leverages the LangChain framework and integrates with Hugging Face's Sentence Transformers library to employ a powerful language model for sentence embeddings. The model chosen here:  Mistral 7B Instruct v0.1 - GGUF 
-Link: https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF
+## 🧠 Overview
 
-also experimented w ollama
+This project experiments with RAG architecture that combines document retrieval with language models for contextual question answering. The system processes PDF documents, creates semantic embeddings, and provides answers based on document content.
 
-## Usage
-1. Install the required dependencies by running `pip install -r requirements.txt`.
-2. Prepare your data (pdf files) and place it in the appropriate directory (e.g., `data/`).
-3. Configure the model by specifying the model path downloaded and other parameters in `modelsetup.py`.
-4. Run `main.py` to interact with the QA system. Enter your questions at the prompt and receive answers based on the trained model.
+### Experimental Setup
+- **Document Processing**: PDF extraction and chunking with LangChain
+- **Embeddings**: HuggingFace sentence transformers for semantic search
+- **LLM Testing**: Experimented with **Mistral 7B** and **Llama** models
+- **Vector Store**: FAISS for efficient similarity search
+- **Interface**: Gradio web UI for interactive testing
 
-## Requirements
-- Used Python 3.11.5 (may work with other versions)
-- LangChain framework
-- Additional dependencies listed in `requirements.txt`
-- Download a LLM
+## 🚀 Quick Start
+
+### Prerequisites
+- Python 3.8+ (tested with 3.11.5)
+- 4GB+ RAM recommended
+
+### Installation
+```bash
+git clone <repository-url>
+cd RAG-REPO
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Setup
+1. Download your chosen LLM model to `data/model/`
+2. Place PDF documents in `data/` directory
+3. Run: `python main.py`
+
+## 🔧 Usage
+
+### Gradio Interface
+```bash
+python main.py
+```
+Launches web interface for interactive querying.
+
+### Console Mode
+Uncomment console code in `main.py` for terminal interaction.
+
+### Custom Integration
+```python
+import dataprocessing, modelsetup
+
+text_chunks = dataprocessing.load_and_process_data("data/")
+qa = modelsetup.setup_model_and_components("model_path", text_chunks)
+result = qa({'query': "Your question"})
+```
+
+## 📁 Project Structure
+```
+RAG-REPO/
+├── main.py              # Gradio interface
+├── dataprocessing.py    # PDF processing
+├── modelsetup.py        # LLM configuration
+├── requirements.txt     # Dependencies
+└── data/               # Documents and models
+    ├── *.pdf
+    └── model/
+```
+
+## 🏗️ Architecture
+
+The RAG system follows a standard retrieval-augmented pipeline:
+
+1. **Document Ingestion**: PDFs are loaded and split into overlapping chunks
+2. **Embedding Creation**: Text chunks converted to 384-dim vectors using sentence transformers
+3. **Vector Storage**: FAISS index stores embeddings for fast similarity search
+4. **Query Processing**: User questions are embedded and matched against document chunks
+5. **Context Retrieval**: Top-k most similar chunks are retrieved as context
+6. **Response Generation**: LLM generates answers using retrieved context + original query
+
+```
+PDF Documents → Text Chunks → Embeddings → FAISS Index
+                                              ↓
+User Query → Embedding → Similarity Search → Context → LLM → Answer
+```
+
+## 🎯 Experiments
+
+- **LLM Comparison**: Tested Mistral 7B vs Llama models for response quality
+- **Chunking Strategies**: Optimized text splitting (10K chars, 20 overlap)
+- **Retrieval Methods**: FAISS similarity search with k=2 documents
+- **Interface Options**: Both Gradio web UI and console interaction
+
+## 🚧 Future Improvements (On Standby)
+
+**Error Handling & Robustness**
+- Add try/catch blocks for file loading failures
+- Graceful model initialization error handling
+- Input validation for queries and file paths
+
+**Configuration & Flexibility**
+- Move hardcoded parameters to `config.yaml`
+- Runtime model switching (Mistral ↔ Llama ↔ Ollama)
+- Configurable chunk sizes and overlap ratios
+- Environment variable support for model paths
+
+**Enhanced Features**
+- Support multiple document formats (Word, TXT, Markdown)
+- Batch document processing with progress bars
+- Document metadata tracking and filtering
+- Query history and response caching
+
+**Performance & Monitoring**
+- Add structured logging for debugging and performance tracking
+- Memory usage optimization for large document sets
+- Response time metrics and quality scoring
+
+## 📚 Resources
+- [Mistral 7B Model](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF)
+- [LangChain Documentation](https://docs.langchain.com/)
+- [Ollama](https://ollama.ai/) (alternative LLM runner)

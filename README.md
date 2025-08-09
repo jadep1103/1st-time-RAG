@@ -12,6 +12,8 @@ RAG is a repository for experimenting with language models and retrieval-based q
 This project leverages the LangChain framework and integrates with Hugging Face's Sentence Transformers library to employ a powerful language model for sentence embeddings. The model chosen here:  Mistral 7B Instruct v0.1 - GGUF 
 Link: https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF
 
+also experimented w ollama
+
 ## Usage
 1. Install the required dependencies by running `pip install -r requirements.txt`.
 2. Prepare your data (pdf files) and place it in the appropriate directory (e.g., `data/`).

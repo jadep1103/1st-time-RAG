@@ -2,7 +2,7 @@
 
 Experimental repository for building Retrieval-Augmented Generation (RAG) systems using LangChain. Testing different LLMs and document processing approaches for intelligent question answering.
 
-![RAG System Demo](path/to/your/image.png)
+![RAG System Demo](example.png)
 
 ## 🧠 Overview
 
